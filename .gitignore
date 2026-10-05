@@ -1,0 +1,10 @@
+﻿__pycache__/
+*.pyc
+.venv/
+.venv*/
+output/*.out
+output/*.err
+.models/
+*.safetensors
+*.part
+.pytest_cache/
