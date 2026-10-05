@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "local-llm-agent"
+version = "1.0.0"
+description = "完全本地运行的大模型 Agent 技能：结构化输出 + 函数调用 + 交互式地图生成"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "ZhouYan05" }]
+dependencies = [
+    "torch>=2.1",
+    "transformers>=4.44",
+    "accelerate>=0.30",
+    "safetensors>=0.4",
+    "numpy>=1.24",
+]
+
+[project.scripts]
+local-llm-agent = "local_llm_agent.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
