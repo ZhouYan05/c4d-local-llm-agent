@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>西亚斯 / SIAS 大学 区域地图</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+  html,body{margin:0;height:100%;font-family:-apple-system,"Segoe UI",Roboto,"Microsoft YaHei",sans-serif}
+  #map{height:100%}
+  .legend{position:absolute;z-index:1000;right:12px;top:12px;background:rgba(255,255,255,.94);
+    padding:10px 14px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.15);font-size:13px;max-width:260px}
+  .legend h3{margin:0 0 6px;font-size:14px}
+  .legend .meta{color:#666;font-size:12px;margin-top:6px;line-height:1.5}
+  .popup-desc{color:#444;font-size:12px}
+</style>
+</head>
+<body>
+<div id="map"></div>
+<div class="legend">
+  <h3>西亚斯 / SIAS 大学 区域地图</h3>
+  <div>共 <b>6</b> 个地点</div>
+  <div class="meta">中心：34.5040, 113.7466<br/>模型：gemma-3-1b-it<br/>设备：cpu</div>
+</div>
+<script>
+var CENTER = [34.504, 113.7466];
+var MARKERS = [
+  {
+    "name": "西亚斯大学教学楼",
+    "category": "教学楼",
+    "description": "西亚斯大学的标志性教学楼，拥有丰富的学术资源和舒适的学习环境。",
+    "lat": 34.5062,
+    "lon": 113.7466
+  },
+  {
+    "name": "西亚斯大学食堂",
+    "category": "食堂",
+    "description": "西亚斯大学的食堂，提供多样化的餐饮选择，满足不同学生的用餐需求。",
+    "lat": 34.5051,
+    "lon": 113.749
+  },
+  {
+    "name": "西亚斯大学宿舍区",
+    "category": "宿舍",
+    "description": "西亚斯大学宿舍区，为学生提供舒适的住宿环境。",
+    "lat": 34.5029,
+    "lon": 113.749
+  },
+  {
+    "name": "西亚斯大学图书馆",
+    "category": "图书馆",
+    "description": "西亚斯大学图书馆，是学生学习和研究的重要场所。",
+    "lat": 34.5018,
+    "lon": 113.7466
+  },
+  {
+    "name": "西亚斯大学体育馆",
+    "category": "体育馆",
+    "description": "西亚斯大学的体育馆，提供各种体育运动的场地和设施。",
+    "lat": 34.5029,
+    "lon": 113.7442
+  },
+  {
+    "name": "西亚斯大学学生宿舍",
+    "category": "宿舍",
+    "description": "西亚斯大学的学生宿舍，为学生提供舒适的居住环境。",
+    "lat": 34.5051,
+    "lon": 113.7442
+  }
+];
+var map = L.map('map').setView(CENTER, 16);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  maxZoom: 19, attribution: '&copy; OpenStreetMap contributors'
+}).addTo(map);
+L.circle(CENTER, {radius: 400, color: '#2563eb', fillColor: '#3b82f6', fillOpacity: 0.08}).addTo(map);
+var bounds = [CENTER];
+MARKERS.forEach(function(m) {
+  var mk = L.marker([m.lat, m.lon]).addTo(map);
+  mk.bindPopup('<b>' + m.name + '</b> <span style="color:#2563eb">[' + m.category + ']</span>'
+    + '<div class="popup-desc">' + (m.description || '') + '</div>'
+    + '<div style="color:#999;font-size:11px">' + m.lat.toFixed(4) + ', ' + m.lon.toFixed(4) + '</div>');
+  bounds.push([m.lat, m.lon]);
+});
+map.fitBounds(bounds, {padding: [40, 40]});
+</script>
+</body>
+</html>
